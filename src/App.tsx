@@ -7,6 +7,7 @@ export interface taskType {
   id: number,
   title: string,
   description: string,
+  isSelected: boolean,
 }
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       id: Date.now(),
       title: taskTitle,
       description: taskDetails,
+      isSelected: false,
     }
     setTasks([...tasks, newTask]);
   }
@@ -26,10 +28,14 @@ function App() {
     setTasks(tasks.filter(task => task.id !== taskId))
   }
 
+  const toggleTaskSelection = (taskId: number) => {
+    setTasks(tasks.map(task => task.id === taskId ? {...task, isSelected: !task.isSelected}: task))
+  }
+
   return (
     <>
       <NewTask onAddTask={addTask} />
-      <TaskList tasks={tasks} onDelete={deleteTask} />
+      <TaskList tasks={tasks} onDelete={deleteTask} toggleTask={toggleTaskSelection} />
     </>
   )
 }
