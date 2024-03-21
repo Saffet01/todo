@@ -77,6 +77,14 @@ input{
   height: 30px;
 }
 
+.selectedTasks{
+  background-color: #535bf2;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

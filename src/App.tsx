@@ -13,6 +13,7 @@ export interface taskType {
 function App() {
 
   const [tasks, setTasks] = useState<taskType[]>([]);
+  const [showSelected, setShowSelected] = useState(false);
 
   const addTask = (taskTitle: string, taskDetails: string) => {
     const newTask: taskType = {
@@ -29,13 +30,21 @@ function App() {
   }
 
   const toggleTaskSelection = (taskId: number) => {
-    setTasks(tasks.map(task => task.id === taskId ? {...task, isSelected: !task.isSelected}: task))
+    setTasks(tasks.map(task => task.id === taskId ? { ...task, isSelected: !task.isSelected } : task))
+  }
+
+  const toggleShowSelected = () => {
+    setShowSelected(!showSelected);
   }
 
   return (
     <>
+      <div className='selectedTasks'>
+        <label htmlFor="">Selected Tasks Only</label>
+        <input id='showSelected' type="checkbox" checked={showSelected} onChange={toggleShowSelected} />
+      </div>
       <NewTask onAddTask={addTask} />
-      <TaskList tasks={tasks} onDelete={deleteTask} toggleTask={toggleTaskSelection} />
+      <TaskList tasks={showSelected ? tasks.filter(task => task.isSelected) : tasks} onDelete={deleteTask} toggleTask={toggleTaskSelection} />
     </>
   )
 }
