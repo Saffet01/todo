@@ -28,6 +28,7 @@ function App() {
   const deleteTask = (taskId: number) => {
     setTasks(tasks.filter(task => task.id !== taskId))
   }
+  
 
   const toggleTaskSelection = (taskId: number) => {
     setTasks(tasks.map(task => task.id === taskId ? { ...task, isSelected: !task.isSelected } : task))
